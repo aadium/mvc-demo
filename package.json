@@ -4,12 +4,16 @@
   "description": "A model-view-controller app tutorial",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js"
   },
   "author": "aadium",
   "license": "ISC",
   "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
     "firebase": "^10.12.0",
-    "firebase-admin": "^12.1.0"
+    "firebase-admin": "^12.1.0",
+    "nodemon": "^3.1.0"
   }
 }

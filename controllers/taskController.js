@@ -1,3 +1,5 @@
+const { get } = require("http");
+
 module.exports = function (db) {
     return {
         addTask: function (task) {
@@ -14,6 +16,10 @@ module.exports = function (db) {
 
         getTask: function (taskId) {
             return db.collection('tasks').doc(taskId).get();
+        },
+
+        getAllTasks: function () {
+            return db.collection('tasks').get();
         }
     };
 };
