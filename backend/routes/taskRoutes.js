@@ -4,7 +4,6 @@ module.exports = function(db) {
     const taskController = require('../controllers/taskController')(db);
     const authMid = require('../middlewares/authMiddleware');
 
-    router.use(authMid);
 
     router.post('/', (req, res) => {
         taskController.addTask(req.body)

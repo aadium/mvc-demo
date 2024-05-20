@@ -3,7 +3,12 @@ const { get } = require("http");
 module.exports = function (db) {
     return {
         addTask: function (task) {
-            return db.collection('tasks').add(task);
+            if (typeof task === 'object' && task !== null && !Array.isArray(task)) {
+                return db.collection('tasks').add(task);
+            } else {
+                console.log(task)
+                throw new Error('Task is not a valid object');
+            }
         },
 
         deleteTask: function (taskId) {
