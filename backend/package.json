@@ -1,5 +1,5 @@
 {
-  "name": "mvc-demo",
+  "name": "mvc-demo-be",
   "version": "1.0.0",
   "description": "A model-view-controller app tutorial",
   "main": "index.js",
