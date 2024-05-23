@@ -23,8 +23,8 @@ module.exports = function (db) {
             return db.collection('tasks').doc(taskId).get();
         },
 
-        getAllTasks: function () {
-            return db.collection('tasks').get();
+        getAllTasks: function (userId) {
+            return db.collection('tasks').where('user', '==', userId).get();
         }
     };
 };
