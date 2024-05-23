@@ -1,5 +1,6 @@
-function loadTasks() {
-    fetch('http://localhost:3000/tasks/')
+async function loadTasks() {
+    const user = await fetchUID();
+    fetch(`http://localhost:3000/tasks/getTasks/${user}`)
         .then(response => response.json())
         .then(tasks => {
             const tableBody = document.getElementById('task-table').getElementsByTagName('tbody')[0];
@@ -10,16 +11,14 @@ function loadTasks() {
                 let cell3 = newRow.insertCell(2);
                 let cell4 = newRow.insertCell(3);
                 let cell5 = newRow.insertCell(4);
-                let cell6 = newRow.insertCell(5);
 
                 cell1.innerHTML = `<i class="bi bi-trash text-danger" onclick="deleteTask('${task.id}')"></i>`;
-                cell2.innerHTML = task.user;
-                cell3.innerHTML = task.name;
-                cell4.innerHTML = task.desc;
-                cell5.innerHTML = new Date(task.createdOn).toLocaleString();
-                cell6.innerHTML = new Date(task.dueAt).toLocaleString();
-                let cell7 = newRow.insertCell(6);
-                cell7.innerHTML = `
+                cell2.innerHTML = task.name;
+                cell3.innerHTML = task.desc;
+                cell4.innerHTML = new Date(task.createdOn).toLocaleString();
+                cell5.innerHTML = new Date(task.dueAt).toLocaleString();
+                let cell6 = newRow.insertCell(5);
+                cell6.innerHTML = `
                 <div class="form-check">
                     <input class="form-check-input" type="checkbox" ${task.completed ? 'checked' : ''} onclick="updateCompletion('${task.id}', this.checked)">
                 </div>
@@ -28,10 +27,9 @@ function loadTasks() {
         });
 }
 
-function addTask(event) {
+async function addTask(event) {
     event.preventDefault();
-
-    let user = document.getElementById('user').value;
+    let user = await fetchUID();
     let name = document.getElementById('name').value;
     let description = document.getElementById('description').value;
     let dueAt = new Date(document.getElementById('due-at').value).toISOString();

@@ -2,8 +2,6 @@ module.exports = function(db) {
     const express = require('express');
     const router = express.Router();
     const taskController = require('../controllers/taskController')(db);
-    const authMid = require('../middlewares/authMiddleware');
-
 
     router.post('/', (req, res) => {
         taskController.addTask(req.body)
@@ -23,7 +21,7 @@ module.exports = function(db) {
             .catch((error) => res.status(500).send(error));
     });
 
-    router.get('/:id', (req, res) => {
+    router.get('/getTask/:id', (req, res) => {
         taskController.getTask(req.params.id)
             .then((doc) => {
                 if (!doc.exists) {
@@ -35,9 +33,10 @@ module.exports = function(db) {
             .catch((error) => res.status(500).send(error));
     });
 
-    router.get('/', (req, res) => {
-        taskController.getAllTasks()
-            .then((querySnapshot) => {
+    router.get('/getTasks/:userId', (req, res) => {
+        const userId = req.params.userId;
+        taskController.getAllTasks(userId)
+        .then((querySnapshot) => {
                 const tasks = [];
                 querySnapshot.forEach((doc) => {
                     tasks.push({
